@@ -85,13 +85,13 @@ public class values : MonoBehaviour
             time = 0;
         }
         minutes.text = minute.ToString();
-        if(minute > 60)
+        if(minute > 24)
         {
             hour++;
             minute = 0;
         }
         hours.text = hour.ToString();
-        if(hour > 24)
+        if(hour > 7)
         {
             day++;
             hour = 0;
