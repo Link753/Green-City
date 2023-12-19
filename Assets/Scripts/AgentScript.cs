@@ -62,6 +62,10 @@ public class AgentScript : MonoBehaviour
             {
                 nav.SetDestination(job.transform.position);
             }
+            else
+            {
+                FoundJob();
+            }
         }
 
         if(food <= 0 && water <= 0)
