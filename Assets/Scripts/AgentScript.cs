@@ -10,16 +10,25 @@ public class AgentScript : MonoBehaviour
     [SerializeField] float food, water, health, fatigue;
     values Smogvalue;
     GameObject job, foodtarget, watertarget, jobTargets;
-    float speed, smog;
+    float speed;
+    AgentState state = new();
     NavMeshAgent nav;
     Transform Home;
     MeshRenderer mesh;
+
+    enum AgentState
+    {
+        REST,
+        WORK,
+        RELAX
+    }
 
     private void Awake()
     {
         foodtarget = GameObject.Find("foodpoints");
         watertarget = GameObject.Find("waterpoints");
         jobTargets = GameObject.Find("jobSites");
+        state = AgentState.REST;
     }
     // Start is called before the first frame update
     void Start()
@@ -33,18 +42,32 @@ public class AgentScript : MonoBehaviour
         mesh = GetComponent<MeshRenderer>();
         Smogvalue = GameObject.Find("EnvironmentManager").GetComponent<values>();
         Smogvalue.addAgent();
-        FoundJob();
     }
 
     // Update is called once per frame
     void Update() 
     {
-        smog = Smogvalue.GetSmog();
-        nav.speed = speed - smog;
+        nav.speed = speed - Smogvalue.GetSmog();
         food -= Time.deltaTime;
         water -= Time.deltaTime;
-        
-        if(food < 10f)
+
+        if (job != null)
+        {
+            FoundJob();
+        }
+
+        switch (state) 
+        {
+            case AgentState.REST:
+                break;
+            case AgentState.WORK:
+                break;
+            case AgentState.RELAX:
+                break;
+        }
+
+
+        if (food < 10f)
         {
             nav.SetDestination(FindNearest(foodtarget).transform.position);
             fatigue -= 0.5f * Time.deltaTime;
@@ -58,14 +81,7 @@ public class AgentScript : MonoBehaviour
 
         if(food > 10f && water > 10f)
         {
-            if(job != null)
-            {
-                nav.SetDestination(job.transform.position);
-            }
-            else
-            {
-                FoundJob();
-            }
+            nav.SetDestination(job.transform.position);
         }
 
         if(food <= 0 && water <= 0)
