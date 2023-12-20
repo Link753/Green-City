@@ -961,7 +961,7 @@ GameObject:
   - component: {fileID: 511771923}
   - component: {fileID: 511771922}
   m_Layer: 5
-  m_Name: TimeInSeconds
+  m_Name: TimeInHours
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2931,7 +2931,7 @@ GameObject:
   - component: {fileID: 1285275554}
   - component: {fileID: 1285275553}
   m_Layer: 5
-  m_Name: TimeInMinutes
+  m_Name: TimeInDays
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3011,7 +3011,7 @@ GameObject:
   - component: {fileID: 1371352966}
   - component: {fileID: 1371352965}
   m_Layer: 5
-  m_Name: TimeInDays
+  m_Name: TimeInYears
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4285,7 +4285,7 @@ GameObject:
   - component: {fileID: 2116052572}
   - component: {fileID: 2116052573}
   m_Layer: 5
-  m_Name: TimeInHours
+  m_Name: TimeInWeeks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4534,15 +4534,23 @@ PrefabInstance:
     - target: {fileID: 1987955203765593309, guid: 1558eaba77245744f960120fe7cf68f2, type: 3}
       propertyPath: days
       value: 
-      objectReference: {fileID: 1371352965}
+      objectReference: {fileID: 1285275553}
     - target: {fileID: 1987955203765593309, guid: 1558eaba77245744f960120fe7cf68f2, type: 3}
       propertyPath: hours
       value: 
-      objectReference: {fileID: 2116052573}
+      objectReference: {fileID: 511771922}
     - target: {fileID: 1987955203765593309, guid: 1558eaba77245744f960120fe7cf68f2, type: 3}
       propertyPath: money
       value: 400
       objectReference: {fileID: 0}
+    - target: {fileID: 1987955203765593309, guid: 1558eaba77245744f960120fe7cf68f2, type: 3}
+      propertyPath: weeks
+      value: 
+      objectReference: {fileID: 2116052573}
+    - target: {fileID: 1987955203765593309, guid: 1558eaba77245744f960120fe7cf68f2, type: 3}
+      propertyPath: years
+      value: 
+      objectReference: {fileID: 1371352965}
     - target: {fileID: 1987955203765593309, guid: 1558eaba77245744f960120fe7cf68f2, type: 3}
       propertyPath: ground
       value: 

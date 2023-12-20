@@ -8,7 +8,7 @@ public class values : MonoBehaviour
 {
     public float smog = 0f, extraSmog = 0f;
     public float money = 100f;
-    float foodlevel, waterlevel, smoggy, time, minute, hour, day;
+    float foodlevel, waterlevel, smoggy, time, hour, day, week, year;
     public Text moneyDisplay;
     public GameObject housePrefab, foodPrefab, waterPrefab, jobPrefab, tree, road, ground;
     [SerializeField] GameObject jobsite, equiped;
@@ -16,10 +16,10 @@ public class values : MonoBehaviour
     Color colour, newColour;
     int totalagents, totaljobs, takenjobs;
     [Header("Timer Attributes")]
-    [SerializeField] Text seconds;
-    [SerializeField] Text minutes;
     [SerializeField] Text hours;
     [SerializeField] Text days;
+    [SerializeField] Text weeks;
+    [SerializeField] Text years;
 
 
     void Awake()
@@ -30,14 +30,14 @@ public class values : MonoBehaviour
         colour = ground.GetComponent<Renderer>().material.color;
         totaljobs = 0;
         takenjobs = 0;
-        time = 0;
-        minute = 0;
+        hour = 0;
         day = 0;
+        year = 0;
     }
 
     void Update()
     {
-        time += Time.deltaTime;
+        hour += Time.deltaTime;
         runtimer();
         smoggy = smog / 20f;
         newColour = colour * (1f-smoggy);
@@ -78,25 +78,25 @@ public class values : MonoBehaviour
 
     void runtimer()
     {
-        seconds.text = time.ToString("0");
-        if(time > 60)
-        {
-            minute++;
-            time = 0;
-        }
-        minutes.text = minute.ToString();
-        if(minute > 24)
-        {
-            hour++;
-            minute = 0;
-        }
-        hours.text = hour.ToString();
-        if(hour > 7)
+        hours.text = hour.ToString("0");
+        if(hour > 23)
         {
             day++;
             hour = 0;
         }
         days.text = day.ToString();
+        if(day > 7)
+        {
+            week++;
+            day = 0;
+        }
+        weeks.text = week.ToString();
+        if(week > 52)
+        {
+            year++;
+            year = 0;
+        }
+        years.text = year.ToString();
 
     }
 

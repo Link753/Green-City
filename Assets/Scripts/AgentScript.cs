@@ -16,6 +16,11 @@ public class AgentScript : MonoBehaviour
     Transform Home;
     MeshRenderer mesh;
 
+    IEnumerator DoAShift()
+    {
+        yield return new WaitForSeconds(8);
+    }
+
     enum AgentState
     {
         REST,
@@ -59,10 +64,13 @@ public class AgentScript : MonoBehaviour
         switch (state) 
         {
             case AgentState.REST:
+                Rest();
                 break;
             case AgentState.WORK:
+                Work();
                 break;
             case AgentState.RELAX:
+                Relax();
                 break;
         }
 
@@ -94,6 +102,21 @@ public class AgentScript : MonoBehaviour
             Destroy(gameObject);
         }
         
+    }
+
+    void Rest()
+    {
+
+    }
+
+    void Work()
+    {
+
+    }
+
+    void Relax()
+    {
+
     }
 
     void OnTriggerEnter(Collider col)
