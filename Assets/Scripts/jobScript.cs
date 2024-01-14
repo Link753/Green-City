@@ -9,6 +9,7 @@ public class jobScript : MonoBehaviour
     Transform jobsites;
     List<AgentScript> agents;
     int maxEmployees, curEmployees;
+    bool hasNightShifts;
 
     #region GameLoop
 
@@ -22,6 +23,14 @@ public class jobScript : MonoBehaviour
     {
         jobsites = GameObject.Find("jobSites").transform;
         money = GameObject.Find("EnvironmentManager").GetComponent<values>();
+        if(Random.Range(0,4) % 2 == 0)
+        {
+            hasNightShifts = true;
+        }
+        else
+        {
+            hasNightShifts = false;
+        }
     }
 
     // Start is called before the first frame update
@@ -41,6 +50,17 @@ public class jobScript : MonoBehaviour
         
     }
 
+    int[] AssignShift()
+    {
+        int[] decidedShift = new int[2];
+        if (!hasNightShifts)
+        {
+            decidedShift[0] = Random.Range(7, 9);
+            decidedShift[1] = Random.Range(5, 7);
+        }
+
+        return decidedShift;
+    }
     #endregion
 
     #region PublicMethods
@@ -49,6 +69,7 @@ public class jobScript : MonoBehaviour
     {
         agents.Add(agent);
         money.addtakenjobs();
+        agent.SetShift(AssignShift());
     }
 
     public void ClockIn(AgentScript agent)

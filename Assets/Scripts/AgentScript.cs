@@ -7,10 +7,11 @@ using Unity.VisualScripting;
 
 public class AgentScript : MonoBehaviour
 {
-    [SerializeField] float food, water, health, fatigue;
-    values Smogvalue;
-    GameObject job, foodtarget, watertarget, jobTargets;
-    float speed;
+    [SerializeField] float energy, health;
+    values value;
+    GameObject job, leisureAreas, jobTargets;
+    float speed, hour;
+    int[] jobSchedule;
     AgentState state = new();
     NavMeshAgent nav;
     Transform Home;
@@ -18,7 +19,9 @@ public class AgentScript : MonoBehaviour
 
     IEnumerator DoAShift()
     {
-        yield return new WaitForSeconds(8);
+        yield return new WaitForSeconds(jobSchedule[1] = jobSchedule[0]);
+        energy -= 50;
+        state = AgentState.RELAX;
     }
 
     enum AgentState
@@ -30,31 +33,28 @@ public class AgentScript : MonoBehaviour
 
     private void Awake()
     {
-        foodtarget = GameObject.Find("foodpoints");
-        watertarget = GameObject.Find("waterpoints");
         jobTargets = GameObject.Find("jobSites");
+        leisureAreas = GameObject.Find("Leisure");
         state = AgentState.REST;
+        jobSchedule = new int[2];
     }
     // Start is called before the first frame update
     void Start()
     {
         speed = 20f;
-        food = 25f;
-        water = 25f;
+        energy = 100f;
         health = 100f;
-        fatigue = 0.0f;
         nav = GetComponent<NavMeshAgent>();
         mesh = GetComponent<MeshRenderer>();
-        Smogvalue = GameObject.Find("EnvironmentManager").GetComponent<values>();
-        Smogvalue.addAgent();
+        value = GameObject.Find("EnvironmentManager").GetComponent<values>();
+        value.addAgent();
     }
 
     // Update is called once per frame
     void Update() 
     {
-        nav.speed = speed - Smogvalue.GetSmog();
-        food -= Time.deltaTime;
-        water -= Time.deltaTime;
+        hour = value.GetHour();
+        nav.speed = speed - value.GetSmog();
 
         if (job != null)
         {
@@ -74,27 +74,20 @@ public class AgentScript : MonoBehaviour
                 break;
         }
 
-
-        if (food < 10f)
+        if(energy > 20f)
         {
-            nav.SetDestination(FindNearest(foodtarget).transform.position);
-            fatigue -= 0.5f * Time.deltaTime;
+            if (hour == jobSchedule[0])
+            {
+                state = AgentState.WORK;
+            }
+            else if (hour == jobSchedule[1])
+            {
+                state = AgentState.RELAX;
+            }
         }
-
-        if(water < 10f)
+        else
         {
-            nav.SetDestination(FindNearest(watertarget).transform.position);
-            fatigue -= 0.2f * Time.deltaTime;
-        }
-
-        if(food > 10f && water > 10f)
-        {
-            nav.SetDestination(job.transform.position);
-        }
-
-        if(food <= 0 && water <= 0)
-        {
-            health -= Time.deltaTime;
+            state = AgentState.REST;
         }
 
         if(health < 0)
@@ -106,38 +99,29 @@ public class AgentScript : MonoBehaviour
 
     void Rest()
     {
-
+        nav.SetDestination(Home.transform.position);
     }
 
     void Work()
     {
-
+        nav.SetDestination(job.transform.position);
     }
 
     void Relax()
     {
-
+        nav.SetDestination(Home.transform.position);
     }
 
     void OnTriggerEnter(Collider col)
     {
-        if(col.gameObject.tag == "food")
-        {
-            food += 35;
-            Smogvalue.SetSmog(Smogvalue.GetSmog() + 0.5f);
-        }
-        else if(col.gameObject.tag == "water")
-        {
-            water += 30;
-            Smogvalue.SetSmog(Smogvalue.GetSmog() + 0.5f);
-        }
-        else if(col.gameObject.tag == "Respawn")
+        if(col.gameObject.tag == "Respawn")
         {
             transform.position = Home.position;
         }
-        else if(col.gameObject.tag == "job")
+        else if(col.gameObject.CompareTag("job"))
         {
             mesh.enabled = false;
+            StartCoroutine(DoAShift());
         }
     }
 
@@ -189,5 +173,10 @@ public class AgentScript : MonoBehaviour
                 break;
             }
         }
+    }
+
+    public void SetShift(int[] shiftPattern)
+    {
+        jobSchedule = shiftPattern;
     }
 }

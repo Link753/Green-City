@@ -102,6 +102,11 @@ public class values : MonoBehaviour
 
     #region GetandSet
 
+    public float GetHour()
+    {
+        return hour;
+    }
+
     public float GetMoney()
     {
         return money;
