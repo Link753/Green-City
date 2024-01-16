@@ -19,16 +19,13 @@ public class HouseScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GameObject.Find("waterpoints").GetComponent<Transform>().childCount != 0 || GameObject.Find("foodpoints").GetComponent<Transform>().childCount != 0)
+        rng = Random.Range(0, 10);
+        if (rng == 1 && spawned < 4)
         {
-            rng = Random.Range(0, 10);
-            if (rng == 1 && spawned < 4)
-            {
-                GameObject a = Instantiate(agent);
-                a.transform.localPosition = transform.position;
-                a.GetComponent<AgentScript>().setHome(transform);
-                spawned++;
-            }
+            GameObject a = Instantiate(agent);
+            a.transform.localPosition = transform.position;
+            a.GetComponent<AgentScript>().setHome(transform);
+            spawned++;
         }
     }
 }

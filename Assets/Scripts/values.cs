@@ -43,17 +43,7 @@ public class values : MonoBehaviour
         newColour = colour * (1f-smoggy);
         ground.GetComponent<Renderer>().material.color = newColour;
         smoglevel.GetComponent<Slider>().value = smoggy;
-        if(GameObject.Find("Houses").GetComponent<Transform>().childCount != 0)
-        {
-            waterlevel = GameObject.Find("waterpoints").GetComponent<Transform>().childCount / GameObject.Find("Houses").GetComponent<Transform>().childCount;
-            foodlevel = GameObject.Find("foodpoints").GetComponent<Transform>().childCount / GameObject.Find("Houses").GetComponent<Transform>().childCount;
-            //jobsites = (float)GameObject.Find("jobSites").GetComponent<Transform>().childCount / (float)GameObject.Find("Houses").GetComponent<Transform>().childCount;
-            fooddemand.GetComponent<Slider>().value = foodlevel;
-            waterdemand.GetComponent<Slider>().value = waterlevel;
-            //jobavail.GetComponent<Slider>().value = jobsites;
-        }
-        smog = GameObject.Find("Environment").GetComponent<Transform>().childCount - (GameObject.Find("jobSites").GetComponent<Transform>().childCount + GameObject.Find("foodpoints").GetComponent<Transform>().childCount
-            + GameObject.Find("waterpoints").GetComponent<Transform>().childCount);
+        smog = GameObject.Find("Environment").GetComponent<Transform>().childCount - GameObject.Find("jobSites").GetComponent<Transform>().childCount;
         smog = -smog;
         moneyDisplay.text = "£" + money.ToString("0.00");
 

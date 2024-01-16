@@ -39,6 +39,11 @@ public class PlaceObject : MonoBehaviour
                     script.enabled = true;
                 }
             }
+
+            if(g.parent == transform)
+            {
+                g.SetParent(null);
+            }
             g.GetComponent<Collider>().enabled = true;
 
         }

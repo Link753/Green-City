@@ -33,6 +33,7 @@ public class AgentScript : MonoBehaviour
 
     private void Awake()
     {
+
         jobTargets = GameObject.Find("jobSites");
         leisureAreas = GameObject.Find("Leisure");
         state = AgentState.REST;
@@ -99,7 +100,10 @@ public class AgentScript : MonoBehaviour
 
     void Rest()
     {
-        nav.SetDestination(Home.transform.position);
+        if(Home != null)
+        {
+            nav.SetDestination(Home.transform.position);
+        }
     }
 
     void Work()
@@ -109,7 +113,7 @@ public class AgentScript : MonoBehaviour
 
     void Relax()
     {
-        nav.SetDestination(Home.transform.position);
+        nav.SetDestination(FindNearest(leisureAreas).transform.position);
     }
 
     void OnTriggerEnter(Collider col)
@@ -148,7 +152,7 @@ public class AgentScript : MonoBehaviour
     GameObject FindNearest(GameObject transforms)
     {
 
-        float closest = 1000f;
+        float closest = Mathf.Infinity;
         GameObject returnObject = gameObject;
         for(int i = 0; i < transforms.GetComponent<Transform>().childCount; i++)
         {

@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2477329622606212800}
   - component: {fileID: 2477329622606212815}
   - component: {fileID: 2477329622606212814}
-  - component: {fileID: 5139307262322104997}
   m_Layer: 0
   m_Name: Leisure
   m_TagString: Leisure
@@ -63,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 595c7a40aceafeb449207f2de7f80fef, type: 2}
+  - {fileID: 2100000, guid: 4194078f35766694f95737bb20b37014, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -106,17 +105,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.5, y: 1.5, z: 1.5}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5139307262322104997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2477329622606212813}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df44b1e21c4ffb742a827e64781ee1df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  electricity: 0
-  smogeffect: 5
